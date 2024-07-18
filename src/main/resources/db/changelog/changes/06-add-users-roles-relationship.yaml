@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-users-roles-relationship
+      author: solomia
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: users_roles
+            baseColumnNames:
+              - user_id
+            referencedTableName: users
+            referencedColumnNames:
+              - id
+            constraintName: FK_users_roles_users
+        - addForeignKeyConstraint:
+            baseTableName: users_roles
+            baseColumnNames:
+              - role_id
+            referencedTableName: roles
+            referencedColumnNames:
+              - id
+            constraintName: FK_users_roles_roles
