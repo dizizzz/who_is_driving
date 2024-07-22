@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,7 +62,7 @@ public class RentalController {
     }
 
     @PreAuthorize("hasRole('MANAGER')")
-    @DeleteMapping("/{id}/return")
+    @PostMapping("/{id}/return")
     @Operation(summary = "Return the rental by ID", description = "Set actual return date by ID")
     public RentalDto returnRental(@PathVariable Long id) {
         return rentalService.setActualReturnDateById(id);
