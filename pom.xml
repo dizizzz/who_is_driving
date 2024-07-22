@@ -19,6 +19,7 @@
 		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 		<jjwt.version>0.11.5</jjwt.version>
+		<telegram.version>5.5.0</telegram.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -113,6 +114,11 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.telegram</groupId>
+			<artifactId>telegrambots</artifactId>
+			<version>${telegram.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.stripe</groupId>
