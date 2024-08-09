@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: modify-session-url-length
+      author: solomia
+      changes:
+        - modifyDataType:
+            columnName: session_url
+            newDataType: VARCHAR(500)
+            tableName: payments
