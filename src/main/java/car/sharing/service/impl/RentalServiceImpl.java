@@ -83,9 +83,14 @@ public class RentalServiceImpl implements RentalService {
                 () -> new EntityNotFoundException("Can`t find rental by id" + id)
         );
         rental.setActualReturnDate(LocalDate.now());
-        Car car = rental.getCar();
+        Car car = carRepository.findById(rental.getCar().getId()).orElseThrow(
+                () -> new EntityNotFoundException(
+                        "Can't find the car by id: " + rental.getCar().getId())
+        );
         car.setInventory(car.getInventory() + 1);
-        return rentalMapper.toDto(rental);
+
+        carRepository.save(car);
+        return rentalMapper.toDto(rentalRepository.save(rental));
     }
 
     @Scheduled(cron = "0 0 8 * * *")// at 8 am
