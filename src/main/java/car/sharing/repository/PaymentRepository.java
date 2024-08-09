@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
     List<Payment> findAllByRentalUserId(Long userId);
+
     Optional<Payment> getBySessionId(String sessionId);
+
     boolean existsByRentalUserIdAndStatus(Long userId, Status status);
+
     boolean existsByRentalIdAndStatus(Long rentalId, Status status);
 }
