@@ -12,7 +12,6 @@ import car.sharing.model.user.User;
 import car.sharing.repository.RoleRepository;
 import car.sharing.repository.UserRepository;
 import car.sharing.service.UserService;
-import com.stripe.exception.StripeException;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto register(UserRegistrationRequestDto requestDto)
-            throws RegistrationException, StripeException {
+            throws RegistrationException {
         String email = requestDto.getEmail();
         if (userRepository.existsByEmail(email)) {
             throw new RegistrationException("Can`t register user by email: " + email);
@@ -59,7 +58,11 @@ public class UserServiceImpl implements UserService {
         Role role = roleRepository.findByName(RoleName.valueOf(roleName)).orElseThrow(
                 () -> new EntityNotFoundException("Can`t find role by name" + roleName)
         );
-        user.getRoles().add(role);
+
+        Set<Role> updatedRoles = new HashSet<>(user.getRoles());
+        updatedRoles.add(role);
+        user.setRoles(updatedRoles);
+
         return userMapper.toDto(userRepository.save(user));
     }
 

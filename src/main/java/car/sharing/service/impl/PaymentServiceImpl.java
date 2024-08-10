@@ -3,7 +3,6 @@ package car.sharing.service.impl;
 import car.sharing.dto.payment.PaymentDto;
 import car.sharing.dto.payment.PaymentRequestDto;
 import car.sharing.exception.EntityNotFoundException;
-import car.sharing.exception.PaidPaymentsException;
 import car.sharing.exception.PaymentFailedException;
 import car.sharing.exception.PendingPaymentsException;
 import car.sharing.mapper.PaymentMapper;
@@ -84,10 +83,6 @@ public class PaymentServiceImpl implements PaymentService {
             long days = duration.toDays() + 1;
 
             amountToPay = dailyFee.multiply(BigDecimal.valueOf(days));
-        }
-
-        if (paymentRepository.existsByRentalIdAndStatus(rental.getId(), Status.PAID)) {
-            throw new PaidPaymentsException("The payment has already been paid");
         }
 
         Payment payment = new Payment();
