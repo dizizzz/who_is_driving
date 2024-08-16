@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,7 +38,7 @@ public class CarController {
 
     @GetMapping
     @Operation(summary = "Get all cars", description = "Get a list of all available cars")
-    public List<CarDto> getAll(Authentication authentication, Pageable pageable) {
+    public List<CarDto> getAll(Pageable pageable) {
         return carService.findAll(pageable);
     }
 
