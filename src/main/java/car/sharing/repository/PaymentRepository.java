@@ -14,6 +14,4 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     Optional<Payment> getBySessionId(String sessionId);
 
     boolean existsByRentalUserIdAndStatus(Long userId, Status status);
-
-    boolean existsByRentalIdAndStatus(Long rentalId, Status status);
 }

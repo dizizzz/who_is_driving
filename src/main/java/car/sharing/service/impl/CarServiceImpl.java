@@ -2,11 +2,11 @@ package car.sharing.service.impl;
 
 import car.sharing.dto.car.CarDto;
 import car.sharing.dto.car.CarRequestDto;
+import car.sharing.exception.EntityNotFoundException;
 import car.sharing.mapper.CarMapper;
 import car.sharing.model.car.Car;
 import car.sharing.repository.CarRepository;
 import car.sharing.service.CarService;
-import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

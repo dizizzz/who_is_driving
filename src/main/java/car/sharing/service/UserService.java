@@ -5,11 +5,10 @@ import car.sharing.dto.user.UserRegistrationRequestDto;
 import car.sharing.dto.user.UserUpdateRequestDto;
 import car.sharing.exception.RegistrationException;
 import car.sharing.model.user.User;
-import com.stripe.exception.StripeException;
 
 public interface UserService {
     UserDto register(UserRegistrationRequestDto requestDto)
-            throws RegistrationException, StripeException;
+            throws RegistrationException;
 
     UserDto updateRoleById(Long id, UserUpdateRequestDto requestDto);
 
