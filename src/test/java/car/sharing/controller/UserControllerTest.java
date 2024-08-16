@@ -12,9 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.sql.DataSource;
-import lombok.SneakyThrows;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +28,27 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {
-    protected static MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
     private UserService userService;
 
-    @BeforeAll
-    static void beforeAll(
-            @Autowired DataSource dataSource,
-            @Autowired WebApplicationContext applicationContext
-    ) throws SQLException {
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private WebApplicationContext applicationContext;
+
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    void setup() throws SQLException {
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(applicationContext)
                 .apply(springSecurity())
                 .build();
-        teardown(dataSource);
+        teardown();
         try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(true);
             ScriptUtils.executeSqlScript(
@@ -59,15 +62,8 @@ public class UserControllerTest {
         }
     }
 
-    @AfterAll
-    static void afterAll(
-            @Autowired DataSource dataSource
-    ) {
-        teardown(dataSource);
-    }
-
-    @SneakyThrows
-    static void teardown(DataSource dataSource) {
+    @AfterEach
+    void teardown() {
         try (Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(true);
             ScriptUtils.executeSqlScript(
@@ -78,6 +74,8 @@ public class UserControllerTest {
                     connection,
                     new ClassPathResource("database/users/remove-users.sql")
             );
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
