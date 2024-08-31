@@ -128,7 +128,7 @@ Ensure that the project is built and use Maven to run the tests:
 ### Payment Integration with Stripe
 This project integrates with the Stripe API for payment processing. Make sure to set up a Stripe account in test mode, as real payments are not required. Use the provided test keys for the integration.
 
-###Notifications with Telegram
+### Notifications with Telegram
 The project uses the Telegram API to send notifications about new rentals, overdue rentals, and successful payments to service administrators. Ensure that your Telegram bot is set up correctly.
 
 #### Known Issues
