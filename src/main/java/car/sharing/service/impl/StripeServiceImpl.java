@@ -16,11 +16,13 @@ import java.time.ZoneOffset;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Profile("!test")
 public class StripeServiceImpl implements StripeService {
     private static final String DOMAIN = "http://localhost:8080";
     private static final String SUCCESS_URL = "/payments/success?sessionId={CHECKOUT_SESSION_ID}";
