@@ -3,6 +3,7 @@ package car.sharing.service.telegram;
 import car.sharing.exception.TelegramNotificationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,6 +13,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @RequiredArgsConstructor
 @Component
+@Profile("!test")
 public class TelegramNotificationServiceImpl extends TelegramLongPollingBot
         implements TelegramNotificationService {
     @Value("${telegram.bot.username}")
